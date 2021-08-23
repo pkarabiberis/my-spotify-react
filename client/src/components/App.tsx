@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { token } from '../spotify';
+import { LandingPage } from './LandingPage';
 import { Login } from './Login';
 import { Profile } from './Profile';
 
@@ -16,5 +17,5 @@ export const App: React.FC = () => {
   }, []);
   console.log(accessToken);
 
-  return <Container>{accessToken ? <Profile /> : <Login />}</Container>;
+  return <Container>{accessToken ? <LandingPage /> : <Login />}</Container>;
 };

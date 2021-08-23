@@ -7,11 +7,13 @@ import { Following } from '../types/Following';
 import { Playlists } from '../types/Playlists';
 import { Tracks } from '../types/Tracks';
 import { User } from '../types/User';
+import { Layout } from './Layout';
 import { TrackItem } from './TrackItem';
 
 interface ProfileProps {}
 
 const Header = styled.header`
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,11 +135,11 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
   return (
     <>
       {user ? (
-        <Main>
+        <Layout>
           <Header>
             <Avatar>
               {user.images.length > 0 ? (
-                <img src={user.images[0].url} alt="avatar" />
+                <img src={user.images[0].url} alt='avatar' />
               ) : null}
             </Avatar>
             <Username>{user.display_name}</Username>
@@ -183,7 +185,7 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
               ))}
             </DataList>
           </TopDataContainer>
-        </Main>
+        </Layout>
       ) : null}
     </>
   );
