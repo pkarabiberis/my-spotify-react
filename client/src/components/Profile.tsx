@@ -186,7 +186,9 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
             </DataList>
           </TopDataContainer>
         </Layout>
-      ) : null}
+      ) : (
+        <Layout>Loading...</Layout>
+      )}
     </>
   );
 };

@@ -64,7 +64,7 @@ export const Nav: React.FC<NavProps> = ({}) => {
           <span>Top tracks</span>
         </NavItem>
       </NavItemLink>
-      <NavItemLink exact to='/recent'>
+      <NavItemLink exact to='/recentlyplayed'>
         <NavItem>
           <BiRewindCircle />
           <span>Recent</span>
