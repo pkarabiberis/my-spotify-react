@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Artist } from './Artist';
 import { Artists } from './Artists';
-import { Login } from './Login';
 import { Playlists } from './Playlists';
 import { Profile } from './Profile';
 import { RecentlyPlayed } from './RecentlyPlayed';

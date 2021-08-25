@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserInfo, logout } from '../spotify';
 import Main from '../styles/Main';
@@ -118,6 +119,8 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
   const [topArtists, setTopArtists] = useState<Artists | null>(null);
   const [playlists, setPlaylists] = useState<Playlists | null>(null);
 
+  const history = useHistory();
+
   useEffect(() => {
     const fetchData = async () => {
       const { user, followedArtists, topTracks, topArtists, playlists } =
@@ -128,6 +131,8 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
       setTopArtists(topArtists);
       setPlaylists(playlists);
     };
+
+    history.location.hash && history.replace('/');
 
     fetchData();
   }, []);

@@ -77,6 +77,7 @@ app.get('/login', (req, res) => {
       scope: scope,
       redirect_uri: REDIRECT_URI,
       state: state,
+      show_dialog: true,
     })}`
   );
 });
@@ -90,7 +91,8 @@ app.get('/callback', (req, res) => {
   const storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
-    res.redirect(`/#${new URLSearchParams({ error: 'state_mismatch' })}`);
+    // res.redirect(`/#${new URLSearchParams({ error: 'state_mismatch' })}`);
+    res.redirect(`${FRONTEND_URI}/login`);
   } else {
     res.clearCookie(stateKey);
     const authOptions = {
@@ -121,7 +123,8 @@ app.get('/callback', (req, res) => {
           })}`
         );
       } else {
-        res.redirect(`/#${new URLSearchParams({ error: 'invalid_token' })}`);
+        // res.redirect(`/#${new URLSearchParams({ error: 'invalid_token' })}`);
+        res.redirect(`${FRONTEND_URI}/login`);
       }
     });
   }

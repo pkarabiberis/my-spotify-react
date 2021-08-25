@@ -15,7 +15,6 @@ export const App: React.FC = () => {
   useEffect(() => {
     setAccessToken(token);
   }, []);
-  console.log(accessToken);
 
   return <Container>{accessToken ? <LandingPage /> : <Login />}</Container>;
 };

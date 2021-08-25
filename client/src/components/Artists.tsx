@@ -10,11 +10,11 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 interface ArtistsProps {}
-interface TimeRangeProps {
+export interface TimeRangeProps {
   active: boolean;
 }
 
-type Ranges = 'long' | 'medium' | 'short';
+export type Ranges = 'long' | 'medium' | 'short';
 
 const ArtistsContainer = styled.div`
   margin-top: 40px;
