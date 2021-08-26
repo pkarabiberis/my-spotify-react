@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Item } from '../types/Tracks';
 import { formatDurationForHumans } from '../utils';
@@ -7,12 +8,13 @@ interface TrackItemProps {
   track: Item;
 }
 
-const TrackContainer = styled.div`
+const TrackContainer = styled(Link)`
   display: grid;
   grid-template-columns: auto 1fr;
   grid-gap: 10px;
   align-items: center;
   margin-bottom: 30px;
+  text-decoration: none;
   img {
     width: 50px;
     min-width: 50px;
@@ -47,6 +49,7 @@ const TrackName = styled.span`
   font-size: 1.2rem;
   margin-bottom: 5px;
   border-bottom: 1px solid transparent;
+  color: black;
 `;
 
 const TrackDuration = styled.span`
@@ -58,7 +61,7 @@ const TrackDuration = styled.span`
 export const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
   return (
     <>
-      <TrackContainer>
+      <TrackContainer to={`/track/${track.id}`}>
         <img src={track.album.images[2].url} />
         <TrackData>
           <TrackDataLeftSection>

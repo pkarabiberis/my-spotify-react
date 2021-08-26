@@ -144,7 +144,7 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
           <Header>
             <Avatar>
               {user.images.length > 0 ? (
-                <img src={user.images[0].url} alt='avatar' />
+                <img src={user.images[0].url} alt="avatar" />
               ) : null}
             </Avatar>
             <Username>{user.display_name}</Username>
