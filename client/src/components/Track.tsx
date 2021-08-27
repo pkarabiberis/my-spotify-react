@@ -63,7 +63,7 @@ export const Track: React.FC<TrackProps> = ({}) => {
     };
 
     fetchTrack();
-  }, []);
+  }, [params.trackId]);
 
   return (
     <Layout>

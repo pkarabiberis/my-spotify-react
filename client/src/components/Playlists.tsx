@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPlaylists } from '../spotify';
 import { Item } from '../types/Playlists';
@@ -14,10 +15,12 @@ const PlayListsContainer = styled.div`
   grid-gap: 30px;
 `;
 
-const Playlist = styled.div`
+const Playlist = styled(Link)`
   display: flex;
   flex-direction: column;
   text-align: center;
+  text-decoration: none;
+  color: black;
 `;
 
 const PlaylistImg = styled.div`
@@ -50,15 +53,13 @@ export const Playlists: React.FC<PlaylistsProps> = ({}) => {
       <PlayListsContainer>
         {playlists &&
           playlists.map((pl) => (
-            <>
-              <Playlist>
-                <PlaylistImg key={pl.id}>
-                  <img src={pl.images[0].url} />
-                </PlaylistImg>
-                <PlaylistName>{pl.name}</PlaylistName>
-                <PlaylistTracks>{pl.tracks.total} TRACKS</PlaylistTracks>
-              </Playlist>
-            </>
+            <Playlist key={pl.id} to={`playlist/${pl.id}`}>
+              <PlaylistImg>
+                <img src={pl.images[0].url} />
+              </PlaylistImg>
+              <PlaylistName>{pl.name}</PlaylistName>
+              <PlaylistTracks>{pl.tracks.total} TRACKS</PlaylistTracks>
+            </Playlist>
           ))}
       </PlayListsContainer>
     </Layout>

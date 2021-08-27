@@ -25,7 +25,6 @@ const ArtistsContainer = styled.div`
 `;
 
 const ArtistText = styled.span`
-  font-size: 1.2rem;
   margin-top: 10px;
   text-decoration: none;
   color: black;

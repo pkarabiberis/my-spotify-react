@@ -4,6 +4,22 @@ import { getHashParams } from '../utils';
 // TOKENS ******************************************************************************************
 const EXPIRATION_TIME = 3600 * 1000; // 3600 seconds * 1000 = 1 hour in milliseconds
 
+axios.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  async (err) => {
+    const originalReq = err.config;
+    if (err.response.status === 401 && !originalReq._retry) {
+      originalReq._retry = true;
+      await refreshAccessToken();
+      return axios(originalReq);
+    }
+
+    return Promise.reject(err);
+  }
+);
+
 const setTokenTimestamp = () =>
   window.localStorage.setItem('spotify_token_timestamp', Date.now());
 const setLocalAccessToken = (token) => {

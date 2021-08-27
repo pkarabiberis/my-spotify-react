@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getArtist } from '../spotify';
+import theme from '../styles/theme';
 import { Item } from '../types/Artists';
 import { Layout } from './Layout';
 
@@ -16,60 +17,37 @@ const Container = styled.div`
 `;
 
 const ArtistImage = styled.div`
+  width: 300px;
+  height: 300px;
   img {
     border-radius: 100%;
-    width: 300px;
-    height: 300px;
   }
 `;
 
-const ArtistName = styled.span`
+const ArtistName = styled.h1`
   margin-top: 15px;
-  font-size: 2rem;
+  font-size: 70px;
   font-weight: 700;
 `;
 
 const ArtistInfoContainer = styled.div`
   margin-top: 40px;
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
 `;
 
-const Genres = styled.div`
-  display: flex;
-  flex-direction: column;
-  h3 {
+const Info = styled.div`
+  p {
     text-transform: uppercase;
-    font-size: 0.9rem;
-    text-align: center;
+    font-size: ${theme.fontSizes.xs};
   }
   span {
     text-align: center;
-  }
-`;
-
-const Followers = styled.div`
-  display: flex;
-  flex-direction: column;
-  h3 {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-  }
-  span {
-    text-align: center;
-  }
-`;
-
-const Popularity = styled.div`
-  display: flex;
-  flex-direction: column;
-  h3 {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-  }
-  span {
-    text-align: center;
+    font-size: ${theme.fontSizes.lg};
+    font-weight: 700;
+    display: block;
   }
 `;
 
@@ -96,20 +74,20 @@ export const Artist: React.FC<ArtistProps> = () => {
           </ArtistImage>
           <ArtistName>{artist?.name}</ArtistName>
           <ArtistInfoContainer>
-            <Genres>
-              <h3>Genres</h3>
+            <Info>
+              <p>Genres</p>
               {artist.genres.map((genre, i) => (
                 <span key={i}>{genre}</span>
               ))}
-            </Genres>
-            <Popularity>
-              <h3>Popularity</h3>
+            </Info>
+            <Info>
+              <p>Popularity</p>
               <span>{artist.popularity}%</span>
-            </Popularity>
-            <Followers>
-              <h3>Followers</h3>
+            </Info>
+            <Info>
+              <p>Followers</p>
               <span>{artist.followers.total}</span>
-            </Followers>
+            </Info>
           </ArtistInfoContainer>
         </Container>
       ) : (

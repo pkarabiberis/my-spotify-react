@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Artist } from './Artist';
 import { Artists } from './Artists';
+import { Playlist } from './Playlist';
 import { Playlists } from './Playlists';
 import { Profile } from './Profile';
 import { RecentlyPlayed } from './RecentlyPlayed';
@@ -20,6 +21,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({}) => {
         <Route exact path="/playlists" component={Playlists} />
         <Route exact path="/artist/:artistId" component={Artist} />
         <Route exact path="/track/:trackId" component={Track} />
+        <Route exact path="/playlist/:playlistId" component={Playlist} />
       </Switch>
     </Router>
   );

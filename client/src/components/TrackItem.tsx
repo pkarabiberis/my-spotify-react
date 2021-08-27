@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../styles/theme';
 import { Item } from '../types/Tracks';
 import { formatDurationForHumans } from '../utils';
 
@@ -38,22 +39,22 @@ const TrackDataLeftSection = styled.div`
 
 const TrackAlbumArtist = styled.div`
   display: flex;
+  color: rgb(117 109 109);
+  margin-right: 5px;
+  font-size: ${theme.fontSizes.sm};
   span {
-    color: rgb(117 109 109);
     margin-right: 5px;
-    font-size: 0.9rem;
   }
 `;
 
 const TrackName = styled.span`
-  font-size: 1.2rem;
   margin-bottom: 5px;
   border-bottom: 1px solid transparent;
   color: black;
 `;
 
 const TrackDuration = styled.span`
-  font-size: 0.9rem;
+  font-size: ${theme.fontSizes.sm};
   color: rgb(117 109 109);
   align-self: center;
 `;

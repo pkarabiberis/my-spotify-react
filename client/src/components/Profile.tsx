@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserInfo, logout } from '../spotify';
-import Main from '../styles/Main';
+import theme from '../styles/theme';
 import { Artists } from '../types/Artists';
 import { Following } from '../types/Following';
 import { Playlists } from '../types/Playlists';
@@ -34,9 +34,11 @@ const Avatar = styled.div`
 const Username = styled.h1`
   font-size: 50px;
   font-weight: 700;
+  margin-top: 20px;
 `;
 
 const UserStats = styled.div`
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
@@ -51,6 +53,7 @@ const Stat = styled.div`
 
 const StatNumber = styled.div`
   color: rgb(29, 185, 84);
+  font-size: ${theme.fontSizes.md};
   font-weight: 700;
 `;
 
@@ -58,6 +61,7 @@ const StatLabel = styled.p`
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.7em;
+  margin-top: ${theme.spacing.xs};
 `;
 
 const TopDataContainer = styled.section`
@@ -105,9 +109,6 @@ const Artist = styled.li`
     border-radius: 100%;
     margin-right: 10px;
   }
-  span {
-    font-size: 1.2rem;
-  }
 `;
 
 export const Profile: React.FC<ProfileProps> = ({}) => {
@@ -135,7 +136,7 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
     history.location.hash && history.replace('/');
 
     fetchData();
-  }, []);
+  }, [history]);
 
   return (
     <>

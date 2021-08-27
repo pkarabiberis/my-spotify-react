@@ -21,6 +21,6 @@
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "react-app-env.d.ts"],
+  "include": ["src", "react-app-env.d.ts", "fonts"],
   "exclude": ["node_modules"]
 }

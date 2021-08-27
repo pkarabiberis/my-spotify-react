@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { token } from '../spotify';
+import GlobalStyle from '../styles/GlobalStyle';
 import { LandingPage } from './LandingPage';
 import { Login } from './Login';
 import { Profile } from './Profile';
@@ -16,5 +17,10 @@ export const App: React.FC = () => {
     setAccessToken(token);
   }, []);
 
-  return <Container>{accessToken ? <LandingPage /> : <Login />}</Container>;
+  return (
+    <Container>
+      <GlobalStyle />
+      {accessToken ? <LandingPage /> : <Login />}
+    </Container>
+  );
 };
