@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPlaylists } from '../spotify';
 import { Item } from '../types/Playlists';
-import { Layout } from './Layout';
+import { Layout } from '../components/Layout';
+import theme from '../styles/theme';
 
 interface PlaylistsProps {}
 
@@ -32,9 +33,17 @@ const PlaylistImg = styled.div`
   }
 `;
 
-const PlaylistName = styled.h3``;
+const PlaylistName = styled.h3`
+  margin-top: 5px;
+  font-size: ${theme.fontSizes.base};
+  font-weight: 700;
+`;
 
-const PlaylistTracks = styled.span``;
+const PlaylistTracks = styled.span`
+  font-size: ${theme.fontSizes.sm};
+  font-weight: 400;
+  color: rgb(117 109 109);
+`;
 
 export const Playlists: React.FC<PlaylistsProps> = ({}) => {
   const [playlists, setPlayLists] = useState<Item[] | null>(null);

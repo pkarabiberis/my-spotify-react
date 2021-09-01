@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserInfo, logout } from '../spotify';
+import ListTimeRangeBtn from '../styles/ListTimeRangeBtn';
 import theme from '../styles/theme';
 import { Artists } from '../types/Artists';
 import { Following } from '../types/Following';
 import { Playlists } from '../types/Playlists';
 import { Tracks } from '../types/Tracks';
 import { User } from '../types/User';
-import { Layout } from './Layout';
-import { TrackItem } from './TrackItem';
+import { Layout } from '../components/Layout';
+import { Loader } from '../components/Loader';
+import { TrackItem } from '../components/TrackItem';
 
 interface ProfileProps {}
 
@@ -32,7 +34,7 @@ const Avatar = styled.div`
 `;
 
 const Username = styled.h1`
-  font-size: 50px;
+  font-size: ${theme.fontSizes.lg};
   font-weight: 700;
   margin-top: 20px;
 `;
@@ -52,15 +54,14 @@ const Stat = styled.div`
 `;
 
 const StatNumber = styled.div`
-  color: rgb(29, 185, 84);
-  font-size: ${theme.fontSizes.md};
+  color: ${theme.colors.red};
   font-weight: 700;
 `;
 
 const StatLabel = styled.p`
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 0.7em;
+  font-size: ${theme.fontSizes.xs};
   margin-top: ${theme.spacing.xs};
 `;
 
@@ -79,27 +80,32 @@ const TopDataHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  h3 {
+    font-size: ${theme.fontSizes.base};
+  }
 `;
 
-const SeeMoreBtn = styled.button`
+const MainButton = styled.button`
   display: inline-block;
-  color: rgb(29, 185, 84);
+  color: ${theme.colors.red};
   font-weight: 700;
-  font-size: 12px;
+  font-size: ${theme.fontSizes.xs};
   letter-spacing: 1px;
   text-transform: uppercase;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid ${theme.colors.red};
   border-radius: 50px;
   cursor: pointer;
-  background-color: #d3f9d8;
+  background-color: transparent;
   padding: 11px 24px;
   transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1) 0s;
   text-align: center;
   white-space: nowrap;
 `;
 
-const Artist = styled.li`
-  display: flex;
+const Artist = styled(Link)`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 10px;
   align-items: center;
   margin-bottom: 30px;
   img {
@@ -109,6 +115,26 @@ const Artist = styled.li`
     border-radius: 100%;
     margin-right: 10px;
   }
+
+  &:hover {
+    transform: scale(1.03);
+  }
+`;
+
+const ArtistData = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ArtistName = styled.span`
+  font-weight: 500;
+  margin-bottom: 5px;
+`;
+
+const ArtistMainGenre = styled.span`
+  font-weight: 400;
+  font-size: ${theme.fontSizes.sm};
+  color: rgb(117 109 109);
 `;
 
 export const Profile: React.FC<ProfileProps> = ({}) => {
@@ -138,10 +164,12 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
     fetchData();
   }, [history]);
 
+  console.log('userdata: ', topArtists);
+
   return (
-    <>
+    <Layout>
       {user ? (
-        <Layout>
+        <>
           <Header>
             <Avatar>
               {user.images.length > 0 ? (
@@ -163,13 +191,13 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
                 <StatLabel>Playlists</StatLabel>
               </Stat>
             </UserStats>
-            <SeeMoreBtn onClick={logout}>Logout</SeeMoreBtn>
+            <MainButton onClick={logout}>Logout</MainButton>
           </Header>
           <TopDataContainer>
             <DataList>
               <TopDataHeader>
-                <h3>Top tracks</h3>
-                <SeeMoreBtn>See more</SeeMoreBtn>
+                <h3>Top tracks of all time</h3>
+                <MainButton>See more</MainButton>
               </TopDataHeader>
               {topTracks &&
                 topTracks.items
@@ -178,23 +206,26 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
             </DataList>
             <DataList>
               <TopDataHeader>
-                <h3>Top Artists</h3>
-                <SeeMoreBtn>See more</SeeMoreBtn>
+                <h3>Top Artists of all time</h3>
+                <MainButton>See more</MainButton>
               </TopDataHeader>
               {topArtists?.items.slice(0, 10).map((artist) => (
-                <Artist key={artist.id}>
+                <Artist to={`/artist/${artist.id}`} key={artist.id}>
                   {artist.images.length > 0 && (
                     <img src={artist.images[2].url} />
                   )}
-                  <span>{artist.name}</span>
+                  <ArtistData>
+                    <ArtistName>{artist.name}</ArtistName>
+                    <ArtistMainGenre>{artist.genres[0]}</ArtistMainGenre>
+                  </ArtistData>
                 </Artist>
               ))}
             </DataList>
           </TopDataContainer>
-        </Layout>
+        </>
       ) : (
-        <Layout>Loading...</Layout>
+        <Loader />
       )}
-    </>
+    </Layout>
   );
 };

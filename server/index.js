@@ -74,9 +74,9 @@ app.get('/login', (req, res) => {
     `https://accounts.spotify.com/authorize?${new URLSearchParams({
       response_type: 'code',
       client_id: CLIENT_ID,
-      scope: scope,
+      scope,
       redirect_uri: REDIRECT_URI,
-      state: state,
+      state,
       show_dialog: true,
     })}`
   );
@@ -123,7 +123,6 @@ app.get('/callback', (req, res) => {
           })}`
         );
       } else {
-        // res.redirect(`/#${new URLSearchParams({ error: 'invalid_token' })}`);
         res.redirect(`${FRONTEND_URI}/login`);
       }
     });

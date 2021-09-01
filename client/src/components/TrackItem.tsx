@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import { Track } from '../types/Playlist';
 import { Item } from '../types/Tracks';
 import { formatDurationForHumans } from '../utils';
 
@@ -22,6 +23,10 @@ const TrackContainer = styled(Link)`
     height: 50px;
     border-radius: 100%;
     margin-right: 10px;
+  }
+
+  &:hover {
+    transform: scale(1.03);
   }
 `;
 
@@ -44,13 +49,13 @@ const TrackAlbumArtist = styled.div`
   font-size: ${theme.fontSizes.sm};
   span {
     margin-right: 5px;
+    font-weight: 400;
   }
 `;
 
 const TrackName = styled.span`
   margin-bottom: 5px;
-  border-bottom: 1px solid transparent;
-  color: black;
+  font-weight: 500;
 `;
 
 const TrackDuration = styled.span`
@@ -60,6 +65,7 @@ const TrackDuration = styled.span`
 `;
 
 export const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
+  console.log('trackitem: ', track);
   return (
     <>
       <TrackContainer to={`/track/${track.id}`}>

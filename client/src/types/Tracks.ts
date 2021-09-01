@@ -19,7 +19,7 @@ export interface Item {
   external_urls: ExternalUrls;
   href: string;
   id: string;
-  is_local: boolean;
+  is_local?: boolean;
   name: string;
   popularity: number;
   preview_url: null | string;

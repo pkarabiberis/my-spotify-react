@@ -10,10 +10,12 @@ const theme = {
     lightGrey: '#9B9B9B',
     grey: '#404040',
     darkGrey: '#282828',
+    red: '#E63946',
+    redLight: '#FF8693',
   },
 
   fonts: {
-    primary: 'Roboto, sans-serif, Times New Roman, Times, sans-serif',
+    primary: 'Poppins, sans-serif',
   },
 
   fontSizes: {
@@ -21,9 +23,7 @@ const theme = {
     xs: `12px`,
     sm: `14px`,
     md: `20px`,
-    lg: `24px`,
-    xl: `28px`,
-    xxl: `32px`,
+    lg: `50px`,
   },
 
   spacing: {

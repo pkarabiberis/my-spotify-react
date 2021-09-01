@@ -4,6 +4,7 @@ import { GiMicrophone } from 'react-icons/gi';
 import { RiPlayListFill } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../styles/theme';
 
 interface NavProps {}
 
@@ -20,7 +21,6 @@ const NavItem = styled.div`
   span {
     margin-top: 5px;
     font-weight: 500;
-    font-size: 1.2rem;
   }
 `;
 
@@ -29,7 +29,7 @@ const NavItemLink = styled(NavLink)`
   &:hover,
   &:focus,
   &.active {
-    box-shadow: 0 5px rgb(29, 185, 84);
+    box-shadow: 0 5px ${theme.colors.red};
     color: black;
     cursor: pointer;
   }

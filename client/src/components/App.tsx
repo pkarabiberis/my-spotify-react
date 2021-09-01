@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { User } from '../pages/User';
 import { token } from '../spotify';
 import GlobalStyle from '../styles/GlobalStyle';
-import { LandingPage } from './LandingPage';
-import { Login } from './Login';
-import { Profile } from './Profile';
+import { Login } from '../pages/Login';
 
 const Container = styled.div`
   height: 100%;
@@ -20,7 +19,7 @@ export const App: React.FC = () => {
   return (
     <Container>
       <GlobalStyle />
-      {accessToken ? <LandingPage /> : <Login />}
+      {accessToken ? <User /> : <Login />}
     </Container>
   );
 };

@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTrack } from '../spotify';
+import theme from '../styles/theme';
 import { Item } from '../types/Tracks';
 import { getYear } from '../utils';
-import { Layout } from './Layout';
+import { Layout } from '../components/Layout';
+import { Loader } from '../components/Loader';
 
 interface TrackProps {}
 
@@ -36,20 +38,18 @@ const TrackInfo = styled.div`
 `;
 
 const TrackName = styled.h1`
-  margin-bottom: 5px;
-  margin-top: 0;
-  font-size: 2rem;
+  font-size: ${theme.fontSizes.lg};
 `;
 
-const TrackArtist = styled.span`
-  font-weight: 600;
-  font-size: 1.5rem;
-  color: rgb(117 109 109);
-  margin-bottom: 5px;
+const TrackArtist = styled.h2`
+  font-weight: 500;
+  font-size: ${theme.fontSizes.base};
 `;
 
-const TrackAlbum = styled.span`
+const TrackAlbum = styled.h3`
   color: rgb(117 109 109);
+  font-weight: 400;
+  font-size: ${theme.fontSizes.sm};
 `;
 
 export const Track: React.FC<TrackProps> = ({}) => {
@@ -67,24 +67,26 @@ export const Track: React.FC<TrackProps> = ({}) => {
 
   return (
     <Layout>
-      {track ? (
-        <Container>
-          <Header>
-            <ArtistArt>
-              <img src={track?.album.images[0].url} />
-            </ArtistArt>
-            <TrackInfo>
-              <TrackName>{track?.name}</TrackName>
-              <TrackArtist>{track?.artists[0].name}</TrackArtist>
-              <TrackAlbum>
-                {track?.album.name} • {getYear(track?.album.release_date)}
-              </TrackAlbum>
-            </TrackInfo>
-          </Header>
-        </Container>
-      ) : (
-        <Layout>Loading</Layout>
-      )}
+      <>
+        {track ? (
+          <Container>
+            <Header>
+              <ArtistArt>
+                <img src={track?.album.images[0].url} />
+              </ArtistArt>
+              <TrackInfo>
+                <TrackName>{track?.name}</TrackName>
+                <TrackArtist>{track?.artists[0].name}</TrackArtist>
+                <TrackAlbum>
+                  {track?.album.name} • {getYear(track?.album.release_date)}
+                </TrackAlbum>
+              </TrackInfo>
+            </Header>
+          </Container>
+        ) : (
+          <Loader />
+        )}
+      </>
     </Layout>
   );
 };

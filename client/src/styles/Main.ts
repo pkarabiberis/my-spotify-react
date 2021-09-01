@@ -7,6 +7,8 @@ const Main = styled.main`
   max-width: 1400px;
   min-height: 100vh;
   padding: 80px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default Main;

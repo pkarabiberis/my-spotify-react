@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { TopArtists } from './TopArtists';
 import { Artist } from './Artist';
-import { Artists } from './Artists';
 import { Playlist } from './Playlist';
 import { Playlists } from './Playlists';
 import { Profile } from './Profile';
@@ -8,14 +9,14 @@ import { RecentlyPlayed } from './RecentlyPlayed';
 import { TopTracks } from './TopTracks';
 import { Track } from './Track';
 
-interface LandingPageProps {}
+interface UserProps {}
 
-export const LandingPage: React.FC<LandingPageProps> = ({}) => {
+export const User: React.FC<UserProps> = ({}) => {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Profile} />
-        <Route exact path="/artists" component={Artists} />
+        <Route exact path="/artists" component={TopArtists} />
         <Route exact path="/tracks" component={TopTracks} />
         <Route exact path="/recentlyplayed" component={RecentlyPlayed} />
         <Route exact path="/playlists" component={Playlists} />

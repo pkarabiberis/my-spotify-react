@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { getArtist } from '../spotify';
 import theme from '../styles/theme';
 import { Item } from '../types/Artists';
-import { Layout } from './Layout';
+import { Layout } from '../components/Layout';
+import { Loader } from '../components/Loader';
 
 interface ArtistProps {}
 
@@ -26,12 +27,12 @@ const ArtistImage = styled.div`
 
 const ArtistName = styled.h1`
   margin-top: 15px;
-  font-size: 70px;
+  font-size: ${theme.fontSizes.lg};
   font-weight: 700;
 `;
 
 const ArtistInfoContainer = styled.div`
-  margin-top: 40px;
+  margin-top: 15px;
   display: grid;
   grid-gap: 15px;
   grid-template-columns: repeat(3, 1fr);
@@ -45,7 +46,6 @@ const Info = styled.div`
   }
   span {
     text-align: center;
-    font-size: ${theme.fontSizes.lg};
     font-weight: 700;
     display: block;
   }
@@ -67,32 +67,34 @@ export const Artist: React.FC<ArtistProps> = () => {
 
   return (
     <Layout>
-      {artist ? (
-        <Container>
-          <ArtistImage>
-            <img src={artist?.images[0].url} />
-          </ArtistImage>
-          <ArtistName>{artist?.name}</ArtistName>
-          <ArtistInfoContainer>
-            <Info>
-              <p>Genres</p>
-              {artist.genres.map((genre, i) => (
-                <span key={i}>{genre}</span>
-              ))}
-            </Info>
-            <Info>
-              <p>Popularity</p>
-              <span>{artist.popularity}%</span>
-            </Info>
-            <Info>
-              <p>Followers</p>
-              <span>{artist.followers.total}</span>
-            </Info>
-          </ArtistInfoContainer>
-        </Container>
-      ) : (
-        <Layout>Loading...</Layout>
-      )}
+      <>
+        {artist ? (
+          <Container>
+            <ArtistImage>
+              <img src={artist?.images[0].url} />
+            </ArtistImage>
+            <ArtistName>{artist?.name}</ArtistName>
+            <ArtistInfoContainer>
+              <Info>
+                <p>Genres</p>
+                {artist.genres.map((genre, i) => (
+                  <span key={i}>{genre}</span>
+                ))}
+              </Info>
+              <Info>
+                <p>Popularity</p>
+                <span>{artist.popularity}%</span>
+              </Info>
+              <Info>
+                <p>Followers</p>
+                <span>{artist.followers.total}</span>
+              </Info>
+            </ArtistInfoContainer>
+          </Container>
+        ) : (
+          <Loader />
+        )}
+      </>
     </Layout>
   );
 };
