@@ -4,6 +4,7 @@ import { GiMicrophone } from 'react-icons/gi';
 import { RiPlayListFill } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { sizes } from '../styles/media';
 import theme from '../styles/theme';
 
 interface NavProps {}
@@ -17,10 +18,13 @@ const NavItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: black;
   span {
     margin-top: 5px;
     font-weight: 500;
+  }
+
+  @media (max-width: ${sizes.phablet}) {
+    font-size: ${theme.fontSizes.xs};
   }
 `;
 

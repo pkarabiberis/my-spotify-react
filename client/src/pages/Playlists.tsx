@@ -6,22 +6,35 @@ import { getPlaylists } from '../spotify';
 import { Item } from '../types/Playlists';
 import { Layout } from '../components/Layout';
 import theme from '../styles/theme';
+import { sizes } from '../styles/media';
 
 interface PlaylistsProps {}
 
 const PlayListsContainer = styled.div`
   margin-top: 80px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 30px;
+  justify-items: center;
+
+  @media (max-width: ${sizes.tablet}) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  @media (max-width: ${sizes.phablet}) {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
 `;
 
 const Playlist = styled(Link)`
+  max-width: 250px;
   display: flex;
   flex-direction: column;
   text-align: center;
-  text-decoration: none;
-  color: black;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 
 const PlaylistImg = styled.div`

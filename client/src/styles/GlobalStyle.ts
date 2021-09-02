@@ -33,6 +33,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 0 10px;
     font-weight: 700;
   }
+  h1 {
+    line-height: 0.95;
+  }
   p {
     margin: 0 0 10px;
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Layout } from './Layout';
 
 interface LoaderProps {}
 
@@ -47,7 +46,7 @@ const rotate = keyframes`
 const Item = styled.div<ItemDelay>`
   width: 33%;
   height: 33%;
-  background-color: #333;
+  background-color: black;
   float: left;
 
   animation-name: ${rotate};

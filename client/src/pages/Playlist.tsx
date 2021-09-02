@@ -10,18 +10,27 @@ import { Item } from '../types/Tracks';
 import { Layout } from '../components/Layout';
 import { Loader } from '../components/Loader';
 import { TrackItem } from '../components/TrackItem';
+import { sizes } from '../styles/media';
 
 interface PlaylistProps {}
 
 const Container = styled.div`
   margin-top: 80px;
   display: flex;
+
+  @media (max-width: ${sizes.tablet}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const PlaylistGeneralInfo = styled.div`
   width: 30%;
   text-align: center;
   min-width: 200px;
+  @media (max-width: ${sizes.tablet}) {
+    margin-bottom: 30px;
+  }
 `;
 
 const PlayListImage = styled.div`
@@ -51,6 +60,10 @@ const PlaylistDescription = styled.p`
 const PlaylistTracks = styled.div`
   margin-left: ${theme.spacing.md};
   flex-grow: 1;
+
+  @media (max-width: ${sizes.tablet}) {
+    margin: 0;
+  }
 `;
 
 export const Playlist: React.FC<PlaylistProps> = ({}) => {

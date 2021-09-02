@@ -13,7 +13,7 @@ const ListTimeRangeBtn = styled.span<TimeRangeProps>`
   cursor: pointer;
   border-color: ${({ active }) =>
     active ? `${theme.colors.red}` : 'transparent'};
-  padding: 10px;
+  margin: 0px 0px 10px 10px;
   transition: ${theme.transition};
   text-align: center;
   white-space: nowrap;

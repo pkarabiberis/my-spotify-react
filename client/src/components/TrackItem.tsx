@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { sizes } from '../styles/media';
 import theme from '../styles/theme';
 import { Track } from '../types/Playlist';
 import { Item } from '../types/Tracks';
@@ -37,19 +38,23 @@ const TrackData = styled.div`
 `;
 
 const TrackDataLeftSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1px;
 `;
 
 const TrackAlbumArtist = styled.div`
-  display: flex;
   color: rgb(117 109 109);
   margin-right: 5px;
   font-size: ${theme.fontSizes.sm};
+  margin-right: 5px;
+  font-weight: 400;
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: inherit;
   span {
-    margin-right: 5px;
-    font-weight: 400;
+    margin-right: 2px;
   }
 `;
 
@@ -65,7 +70,6 @@ const TrackDuration = styled.span`
 `;
 
 export const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
-  console.log('trackitem: ', track);
   return (
     <>
       <TrackContainer to={`/track/${track.id}`}>
@@ -78,9 +82,11 @@ export const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
                 {track.album.artists.length > 0 && track.album.artists[0].name}{' '}
                 •
               </span>
+
               <span>{track.album.name}</span>
             </TrackAlbumArtist>
           </TrackDataLeftSection>
+
           <TrackDuration>
             {formatDurationForHumans(track.duration_ms)}
           </TrackDuration>

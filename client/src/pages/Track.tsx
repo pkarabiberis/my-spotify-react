@@ -9,6 +9,7 @@ import { Item } from '../types/Tracks';
 import { getYear } from '../utils';
 import { Layout } from '../components/Layout';
 import { Loader } from '../components/Loader';
+import { sizes } from '../styles/media';
 
 interface TrackProps {}
 
@@ -20,10 +21,16 @@ const Container = styled.div`
 
 const Header = styled.div`
   display: flex;
+
+  @media (max-width: ${sizes.thone}) {
+    flex-direction: inherit;
+    align-items: center;
+  }
 `;
 
 const ArtistArt = styled.div`
   max-width: 250px;
+  margin-bottom: 10px;
   img {
     width: 100%;
     max-width: 100%;
@@ -35,21 +42,37 @@ const TrackInfo = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 30px;
+
+  @media (max-width: ${sizes.thone}) {
+    align-items: center;
+    margin: 0;
+  }
 `;
 
 const TrackName = styled.h1`
-  font-size: ${theme.fontSizes.lg};
+  font-size: 32px;
+  text-align: start !important;
+  @media (max-width: ${sizes.thone}) {
+    text-align: center !important;
+  }
 `;
 
 const TrackArtist = styled.h2`
   font-weight: 500;
   font-size: ${theme.fontSizes.base};
+
+  @media (max-width: ${sizes.tablet}) {
+    font-size: ${theme.fontSizes.sm};
+  }
 `;
 
 const TrackAlbum = styled.h3`
   color: rgb(117 109 109);
   font-weight: 400;
   font-size: ${theme.fontSizes.sm};
+  @media (max-width: ${sizes.tablet}) {
+    font-size: ${theme.fontSizes.xs};
+  }
 `;
 
 export const Track: React.FC<TrackProps> = ({}) => {

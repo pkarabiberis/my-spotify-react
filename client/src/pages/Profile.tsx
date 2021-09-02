@@ -12,6 +12,7 @@ import { User } from '../types/User';
 import { Layout } from '../components/Layout';
 import { Loader } from '../components/Loader';
 import { TrackItem } from '../components/TrackItem';
+import { sizes } from '../styles/media';
 
 interface ProfileProps {}
 
@@ -69,6 +70,9 @@ const TopDataContainer = styled.section`
   display: grid;
   grid-gap: 80px;
   grid-template-columns: 1fr 1fr;
+  @media (max-width: ${sizes.tablet}) {
+    display: block;
+  }
 `;
 
 const DataList = styled.div`
@@ -82,10 +86,16 @@ const TopDataHeader = styled.div`
   margin-bottom: 30px;
   h3 {
     font-size: ${theme.fontSizes.base};
+    margin: 0;
+  }
+
+  @media (max-width: ${sizes.thone}) {
+    margin-right: 5px;
+    margin-left: 5px;
   }
 `;
 
-const MainButton = styled.button`
+const MainButton = styled(Link)`
   display: inline-block;
   color: ${theme.colors.red};
   font-weight: 700;
@@ -97,9 +107,13 @@ const MainButton = styled.button`
   cursor: pointer;
   background-color: transparent;
   padding: 11px 24px;
-  transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1) 0s;
+  transition: all 0.2s cubic-bezier(0.3, 0, 0.4, 1);
   text-align: center;
   white-space: nowrap;
+  &:hover {
+    background-color: ${theme.colors.red};
+    color: white;
+  }
 `;
 
 const Artist = styled(Link)`
@@ -191,13 +205,15 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
                 <StatLabel>Playlists</StatLabel>
               </Stat>
             </UserStats>
-            <MainButton onClick={logout}>Logout</MainButton>
+            <MainButton to={''} onClick={logout}>
+              Logout
+            </MainButton>
           </Header>
           <TopDataContainer>
             <DataList>
               <TopDataHeader>
-                <h3>Top tracks of all time</h3>
-                <MainButton>See more</MainButton>
+                <h3>Top tracks</h3>
+                <MainButton to={'/tracks'}>See more</MainButton>
               </TopDataHeader>
               {topTracks &&
                 topTracks.items
@@ -206,8 +222,8 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
             </DataList>
             <DataList>
               <TopDataHeader>
-                <h3>Top Artists of all time</h3>
-                <MainButton>See more</MainButton>
+                <h3>Top artists</h3>
+                <MainButton to={'/artists'}>See more</MainButton>
               </TopDataHeader>
               {topArtists?.items.slice(0, 10).map((artist) => (
                 <Artist to={`/artist/${artist.id}`} key={artist.id}>

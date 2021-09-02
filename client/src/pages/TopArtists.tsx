@@ -1,17 +1,16 @@
-import { Layout } from '../components/Layout';
-import {
-  getTopArtistsShort,
-  getTopArtistsMedium,
-  getTopArtistsLong,
-} from '../spotify';
-import { useState } from 'react';
-import { Item } from '../types/Artists';
-import { useEffect } from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Layout } from '../components/Layout';
 import { Loader } from '../components/Loader';
+import {
+  getTopArtistsLong,
+  getTopArtistsMedium,
+  getTopArtistsShort,
+} from '../spotify';
 import ListHeader from '../styles/ListHeader';
 import ListTimeRangeBtn from '../styles/ListTimeRangeBtn';
+import { Item } from '../types/Artists';
 import { Ranges } from '../types/TimeRange';
 
 interface TopArtistsProps {}
@@ -19,15 +18,14 @@ interface TopArtistsProps {}
 const ArtistsContainer = styled.div`
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 20px;
   text-align: center;
 `;
 
 const ArtistText = styled.span`
   margin-top: 10px;
-  text-decoration: none;
-  color: black;
+  font-weight: 500;
 `;
 
 const ArtistImage = styled.div`
@@ -43,7 +41,9 @@ const ArtistContainer = styled(Link)`
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: black;
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 
 export const TopArtists: React.FC<TopArtistsProps> = ({}) => {
