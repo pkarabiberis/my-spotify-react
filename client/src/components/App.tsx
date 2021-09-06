@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 export const App: React.FC = () => {
-  const [accessToken, setAccessToken] = useState('');
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   useEffect(() => {
     setAccessToken(token);
   }, []);

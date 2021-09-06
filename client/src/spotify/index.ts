@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Item } from '../types/Tracks';
 import { getHashParams } from '../utils';
 
 // TOKENS ******************************************************************************************
@@ -20,31 +21,24 @@ axios.interceptors.response.use(
 );
 
 const setTokenTimestamp = () =>
-  window.localStorage.setItem('spotify_token_timestamp', Date.now());
-const setLocalAccessToken = (token) => {
+  window.localStorage.setItem('spotify_token_timestamp', Date.now().toString());
+const setLocalAccessToken = (token: string) => {
   setTokenTimestamp();
   window.localStorage.setItem('spotify_access_token', token);
 };
-const setLocalRefreshToken = (token) =>
-  window.localStorage.setItem('spotify_refresh_token', token);
 const getTokenTimestamp = () =>
-  window.localStorage.getItem('spotify_token_timestamp');
+  window.localStorage.getItem('spotify_token_timestamp') || 0;
 const getLocalAccessToken = () =>
   window.localStorage.getItem('spotify_access_token');
-const getLocalRefreshToken = () =>
-  window.localStorage.getItem('spotify_refresh_token');
 
 // Refresh the token
 const refreshAccessToken = async () => {
-  console.log('refreshing');
   try {
-    const { data } = await axios.get(
-      `http://localhost:8888/refresh_token?refresh_token=${getLocalRefreshToken()}`
-    );
+    const { data } = await axios.get('http://localhost:8888/refresh_token', {
+      withCredentials: true,
+    });
     const { access_token } = data;
     setLocalAccessToken(access_token);
-    // window.location.reload();
-    // return;
   } catch (e) {
     console.error(e);
   }
@@ -52,15 +46,14 @@ const refreshAccessToken = async () => {
 
 // Get access token off of query params (called on application init)
 export const getAccessToken = () => {
-  console.log('getaccesstoken');
-  const { error, access_token, refresh_token } = getHashParams();
+  const { error, access_token } = getHashParams();
   if (error) {
     console.error(error);
     refreshAccessToken();
   }
 
   // If token has expired
-  if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
+  if (Date.now() - Number(getTokenTimestamp()) > EXPIRATION_TIME) {
     console.warn('Access token has expired, refreshing...');
     refreshAccessToken();
   }
@@ -69,9 +62,7 @@ export const getAccessToken = () => {
 
   // If there is no ACCESS token in local storage, set it and return `access_token` from params
   if ((!localAccessToken || localAccessToken === 'undefined') && access_token) {
-    console.log('here');
     setLocalAccessToken(access_token);
-    setLocalRefreshToken(refresh_token);
     return access_token;
   }
 
@@ -80,10 +71,12 @@ export const getAccessToken = () => {
 
 export const token = getAccessToken();
 
-export const logout = () => {
+export const logout = async () => {
   window.localStorage.removeItem('spotify_token_timestamp');
   window.localStorage.removeItem('spotify_access_token');
-  window.localStorage.removeItem('spotify_refresh_token');
+  await axios.get('http://localhost:8888/logout', {
+    withCredentials: true,
+  });
   window.location.reload();
 };
 
@@ -161,14 +154,14 @@ export const getTopTracksLong = () =>
  * Get an Artist
  * https://developer.spotify.com/documentation/web-api/reference/artists/get-artist/
  */
-export const getArtist = (artistId) =>
+export const getArtist = (artistId: string) =>
   axios.get(`https://api.spotify.com/v1/artists/${artistId}`);
 
 /**
  * Follow an Artist
  * https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
  */
-export const followArtist = (artistId) => {
+export const followArtist = (artistId: string) => {
   const url = `https://api.spotify.com/v1/me/following?type=artist&ids=${artistId}`;
   return axios({ method: 'put', url });
 };
@@ -177,7 +170,7 @@ export const followArtist = (artistId) => {
  * Check if Current User Follows Artists
  * https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
  */
-export const doesUserFollowArtist = (artistId) =>
+export const doesUserFollowArtist = (artistId: string) =>
   axios.get(
     `https://api.spotify.com/v1/me/following/contains?type=artist&ids=${artistId}`
   );
@@ -186,7 +179,7 @@ export const doesUserFollowArtist = (artistId) =>
  * Check if Users Follow a Playlist
  * https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
  */
-export const doesUserFollowPlaylist = (playlistId, userId) =>
+export const doesUserFollowPlaylist = (playlistId: string, userId: string) =>
   axios.get(
     `https://api.spotify.com/v1/playlists/${playlistId}/followers/contains?ids=${userId}`
   );
@@ -195,7 +188,7 @@ export const doesUserFollowPlaylist = (playlistId, userId) =>
  * Create a Playlist (The playlist will be empty until you add tracks)
  * https://developer.spotify.com/documentation/web-api/reference/playlists/create-playlist/
  */
-export const createPlaylist = (userId, name) => {
+export const createPlaylist = (userId: string, name: string) => {
   const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
   const data = JSON.stringify({ name });
   return axios({ method: 'post', url, data });
@@ -205,7 +198,7 @@ export const createPlaylist = (userId, name) => {
  * Add Tracks to a Playlist
  * https://developer.spotify.com/documentation/web-api/reference/playlists/add-tracks-to-playlist/
  */
-export const addTracksToPlaylist = (playlistId, uris) => {
+export const addTracksToPlaylist = (playlistId: string, uris: string) => {
   const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${uris}`;
   return axios({ method: 'post', url });
 };
@@ -214,7 +207,7 @@ export const addTracksToPlaylist = (playlistId, uris) => {
  * Follow a Playlist
  * https://developer.spotify.com/documentation/web-api/reference/follow/follow-playlist/
  */
-export const followPlaylist = (playlistId) => {
+export const followPlaylist = (playlistId: string) => {
   const url = `https://api.spotify.com/v1/playlists/${playlistId}/followers`;
   return axios({ method: 'put', url });
 };
@@ -223,26 +216,26 @@ export const followPlaylist = (playlistId) => {
  * Get a Playlist
  * https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
  */
-export const getPlaylist = (playlistId) =>
+export const getPlaylist = (playlistId: string) =>
   axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`);
 
 /**
  * Get a Playlist's Tracks
  * https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
  */
-export const getPlaylistTracks = (playlistId) =>
+export const getPlaylistTracks = (playlistId: string) =>
   axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`);
 
 /**
  * Return a comma separated string of track IDs from the given array of tracks
  */
-const getTrackIds = (tracks) => tracks.map(({ track }) => track.id).join(',');
+const getTrackIds = (tracks: Item[]) => tracks.map(({ id }) => id).join(',');
 
 /**
  * Get Audio Features for Several Tracks
  * https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-audio-features/
  */
-export const getAudioFeaturesForTracks = (tracks) => {
+export const getAudioFeaturesForTracks = (tracks: Item[]) => {
   const ids = getTrackIds(tracks);
   return axios.get(`https://api.spotify.com/v1/audio-features?ids=${ids}`);
 };
@@ -251,7 +244,7 @@ export const getAudioFeaturesForTracks = (tracks) => {
  * Get Recommendations Based on Seeds
  * https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
  */
-export const getRecommendationsForTracks = (tracks) => {
+export const getRecommendationsForTracks = (tracks: Item[]) => {
   const shuffledTracks = tracks.sort(() => 0.5 - Math.random());
   const seed_tracks = getTrackIds(shuffledTracks.slice(0, 5));
   const seed_artists = '';
@@ -266,21 +259,21 @@ export const getRecommendationsForTracks = (tracks) => {
  * Get a Track
  * https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
  */
-export const getTrack = (trackId) =>
+export const getTrack = (trackId: string) =>
   axios.get(`https://api.spotify.com/v1/tracks/${trackId}`);
 
 /**
  * Get Audio Analysis for a Track
  * https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/
  */
-export const getTrackAudioAnalysis = (trackId) =>
+export const getTrackAudioAnalysis = (trackId: string) =>
   axios.get(`https://api.spotify.com/v1/audio-analysis/${trackId}`);
 
 /**
  * Get Audio Features for a Track
  * https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
  */
-export const getTrackAudioFeatures = (trackId) =>
+export const getTrackAudioFeatures = (trackId: string) =>
   axios.get(`https://api.spotify.com/v1/audio-features/${trackId}`);
 
 export const getUserInfo = () =>
@@ -304,7 +297,7 @@ export const getUserInfo = () =>
       )
     );
 
-export const getTrackInfo = (trackId) =>
+export const getTrackInfo = (trackId: string) =>
   axios
     .all([
       getTrack(trackId),

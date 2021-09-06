@@ -3,13 +3,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getTrack } from '../spotify';
+import { getTrack, getTrackInfo } from '../spotify';
 import theme from '../styles/theme';
 import { Item } from '../types/Tracks';
 import { getYear } from '../utils';
 import { Layout } from '../components/Layout';
 import { Loader } from '../components/Loader';
 import { sizes } from '../styles/media';
+import { TrackAudioFeatures } from '../types/TrackAudioFeatures';
+import { TrackAnalysis } from '../types/TrackAudioAnalysis';
 
 interface TrackProps {}
 
@@ -75,14 +77,46 @@ const TrackAlbum = styled.h3`
   }
 `;
 
+const TrackFeatures = styled.div`
+  margin-top: 30px;
+  display: grid;
+  border-top: 1px solid rgb(117 109 109);
+  border-left: 1px solid rgb(117 109 109);
+  grid-template-columns: repeat(5, 1fr);
+`;
+
+const TrackFeature = styled.div`
+  padding: 15px;
+  border-right: 1px solid rgb(117 109 109);
+  border-bottom: 1px solid rgb(117 109 109);
+  text-align: center;
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0;
+  }
+  span {
+    color: ${theme.colors.red};
+    font-size: ${theme.fontSizes.xs};
+    font-weight: 400;
+  }
+`;
+
 export const Track: React.FC<TrackProps> = ({}) => {
   const [track, setTrack] = useState<Item | null>(null);
+  const [trackAudioFeatures, setTrackAudioFeatures] =
+    useState<TrackAudioFeatures | null>(null);
+  const [trackAudioAnalysis, setTrackAudioAnalysis] =
+    useState<TrackAnalysis | null>(null);
+
   const params: { trackId: string } = useParams();
   console.log(params);
   useEffect(() => {
     const fetchTrack = async () => {
-      const { data } = await getTrack(params.trackId);
-      setTrack(data);
+      const data = await getTrackInfo(params.trackId);
+      setTrack(data.track);
+      setTrackAudioFeatures(data.audioFeatures);
+      setTrackAudioAnalysis(data.audioAnalysis);
     };
 
     fetchTrack();
@@ -91,7 +125,7 @@ export const Track: React.FC<TrackProps> = ({}) => {
   return (
     <Layout>
       <>
-        {track ? (
+        {track && trackAudioFeatures && trackAudioAnalysis ? (
           <Container>
             <Header>
               <ArtistArt>
@@ -105,6 +139,28 @@ export const Track: React.FC<TrackProps> = ({}) => {
                 </TrackAlbum>
               </TrackInfo>
             </Header>
+            <TrackFeatures>
+              <TrackFeature>
+                <h1>{trackAudioAnalysis.track.time_signature}</h1>
+                <span>Time signature</span>
+              </TrackFeature>
+              <TrackFeature>
+                <h1>{trackAudioAnalysis.track.key}</h1>
+                <span>Key</span>
+              </TrackFeature>
+              <TrackFeature>
+                <h1>{trackAudioAnalysis.track.tempo}</h1>
+                <span>Tempo</span>
+              </TrackFeature>
+              <TrackFeature>
+                <h1>{trackAudioAnalysis.track.mode}</h1>
+                <span>Mode</span>
+              </TrackFeature>
+              <TrackFeature>
+                <h1>{trackAudioAnalysis.bars?.length}</h1>
+                <span>Bars</span>
+              </TrackFeature>
+            </TrackFeatures>
           </Container>
         ) : (
           <Loader />
