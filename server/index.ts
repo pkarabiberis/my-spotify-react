@@ -112,6 +112,7 @@ app.get('/callback', (req, res) => {
       json: true,
     };
 
+    //ok
     request.post(authOptions, (error, response, body) => {
       if (!error && response.statusCode === 200) {
         const access_token = body.access_token;
