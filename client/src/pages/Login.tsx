@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { Welcome } from '../components/icons/Welcome';
+import axios from 'axios';
 interface LoginProps {}
 
 const Container = styled.div`
@@ -62,6 +63,20 @@ const LoginButton = styled.a`
 `;
 
 export const Login: React.FC<LoginProps> = () => {
+  let URI = '';
+  if (process.env.NODE_ENV !== 'production') {
+    URI = 'http://localhost:8888/login';
+  } else {
+    URI = 'https://my-spotify.herokuapp.com/login';
+  }
+
+  const login = () => {
+    axios.get(URI, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+  };
   return (
     <Container>
       <ArtWork>
@@ -69,15 +84,7 @@ export const Login: React.FC<LoginProps> = () => {
       </ArtWork>
       <ForeGround>
         <AppText>My Spotify</AppText>
-        <LoginButton
-          href={
-            process.env.NODE_ENV !== 'production'
-              ? 'http://localhost:8888/login'
-              : 'https://my-spotify.herokuapp.com/login'
-          }
-        >
-          Log in
-        </LoginButton>
+        <LoginButton onClick={login}>Log in</LoginButton>
       </ForeGround>
     </Container>
   );

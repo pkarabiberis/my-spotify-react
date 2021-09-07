@@ -73,7 +73,6 @@ app.get('/login', function (_, res) {
 app.get('/callback', function (req, res) {
     // your application requests refresh and access tokens
     // after checking the state parameter
-    //ok
     var code = req.query.code || null;
     var state = req.query.state || null;
     var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -94,6 +93,7 @@ app.get('/callback', function (req, res) {
             },
             json: true,
         };
+        //ok
         request_1.default.post(authOptions, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 var access_token = body.access_token;
@@ -111,6 +111,7 @@ app.get('/callback', function (req, res) {
                 }));
             }
             else {
+                console.log('redirect');
                 res.redirect(FRONTEND_URI + "/login");
             }
         });
@@ -136,6 +137,7 @@ app.get('/refresh_token', function (req, res) {
             res.send({ access_token: access_token });
         }
         else {
+            console.log('err rtoken: ', error);
             res.send({ error: error });
         }
     });

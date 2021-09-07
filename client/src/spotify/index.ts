@@ -31,33 +31,33 @@ const getLocalAccessToken = () =>
 
 // Refresh the token
 const refreshAccessToken = async () => {
+  console.log('env:', process.env.NODE_ENV);
   try {
     const { data } = await axios.get(
       `${
         process.env.NODE_ENV !== 'production'
-          ? 'http://localhost:8888/login'
+          ? 'http://localhost:8888/refresh_token'
           : 'https://my-spotify.herokuapp.com/refresh_token'
       }`,
       {
         withCredentials: true,
       }
     );
-    const { access_token, error } = data;
-    if (!error) {
-      setLocalAccessToken(access_token);
-    }
+    console.log('yep:', data);
+    const { access_token } = data;
+
+    setLocalAccessToken(access_token);
   } catch (e) {
-    // yep
+    console.log('e:', e.message);
   }
 };
 
 // Get access token off of query params
 export const getAccessToken = () => {
-  const { error, access_token } = getHashParams();
-  if (error) {
-    refreshAccessToken();
+  const { access_token } = getHashParams();
+  if (!access_token) {
+    return null;
   }
-
   // If token has expired
   if (Date.now() - Number(getTokenTimestamp()) > EXPIRATION_TIME) {
     refreshAccessToken();

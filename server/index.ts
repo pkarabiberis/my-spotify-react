@@ -38,7 +38,6 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Priority serve any static files.
-
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app
@@ -69,7 +68,6 @@ app.get('/', (_, res) => {
 app.get('/login', (_, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
-
   // your application requests authorization
   const scope =
     'user-read-private user-read-email user-read-recently-played user-top-read user-follow-read user-follow-modify playlist-read-private playlist-read-collaborative playlist-modify-public';
@@ -88,7 +86,7 @@ app.get('/login', (_, res) => {
 app.get('/callback', (req, res) => {
   // your application requests refresh and access tokens
   // after checking the state parameter
-  //ok
+
   const code = req.query.code || null;
   const state = req.query.state || null;
   const storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -133,6 +131,7 @@ app.get('/callback', (req, res) => {
           })}`
         );
       } else {
+        console.log('redirect');
         res.redirect(`${FRONTEND_URI}/login`);
       }
     });
@@ -161,6 +160,7 @@ app.get('/refresh_token', (req, res) => {
       const access_token = body.access_token;
       res.send({ access_token });
     } else {
+      console.log('err rtoken: ', error);
       res.send({ error });
     }
   });
