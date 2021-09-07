@@ -66,7 +66,7 @@ const PlaylistTracks = styled.div`
   }
 `;
 
-export const Playlist: React.FC<PlaylistProps> = ({}) => {
+export const Playlist: React.FC<PlaylistProps> = () => {
   const [playlist, setPlaylist] = useState<PlaylistRes | null>(null);
   const [playlistTracks, setPlaylistTracks] = useState<Item[] | null>(null);
   const params: { playlistId: string } = useParams();
@@ -89,7 +89,7 @@ export const Playlist: React.FC<PlaylistProps> = ({}) => {
             <PlaylistGeneralInfo>
               <PlayListImage>
                 {playlist.images?.length && (
-                  <img src={playlist.images[0].url} />
+                  <img src={playlist.images[0].url} alt="Playlist" />
                 )}
               </PlayListImage>
               <PlayListName>{playlist.name}</PlayListName>

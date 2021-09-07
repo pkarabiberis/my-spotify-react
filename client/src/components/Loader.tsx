@@ -59,7 +59,7 @@ const Item = styled.div<ItemDelay>`
   animation-iteration-count: infinite;
 `;
 
-export const Loader: React.FC<LoaderProps> = ({}) => {
+export const Loader: React.FC<LoaderProps> = () => {
   return (
     <Container>
       <CubeGrid>

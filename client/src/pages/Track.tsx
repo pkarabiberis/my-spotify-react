@@ -143,7 +143,7 @@ const PlayButton = styled.a`
   }
 `;
 
-export const Track: React.FC<TrackProps> = ({}) => {
+export const Track: React.FC<TrackProps> = () => {
   const [track, setTrack] = useState<Item | null>(null);
   const [trackAudioFeatures, setTrackAudioFeatures] =
     useState<TrackAudioFeatures | null>(null);
@@ -170,7 +170,7 @@ export const Track: React.FC<TrackProps> = ({}) => {
           <Container>
             <Header>
               <ArtistArt>
-                <img src={track?.album.images[0].url} />
+                <img src={track?.album.images[0].url} alt="Album" />
               </ArtistArt>
               <TrackInfo>
                 <TrackName>{track?.name}</TrackName>

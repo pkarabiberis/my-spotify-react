@@ -13,7 +13,7 @@ const TracksContainer = styled.div`
   margin-top: 80px;
 `;
 
-export const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({}) => {
+export const RecentlyPlayed: React.FC<RecentlyPlayedProps> = () => {
   const [recentlyPlayed, setRecentlyPlayed] = useState<Item[] | null>(null);
   useEffect(() => {
     const getRecentlyPlayedTracks = async () => {

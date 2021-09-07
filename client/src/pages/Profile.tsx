@@ -150,7 +150,7 @@ const ArtistMainGenre = styled.span`
   color: rgb(117 109 109);
 `;
 
-export const Profile: React.FC<ProfileProps> = ({}) => {
+export const Profile: React.FC<ProfileProps> = () => {
   const [user, setUser] = useState<User | null>(null);
   const [followedArtists, setFollowedArtists] = useState<Following | null>(
     null
@@ -225,7 +225,7 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
               {topArtists?.items.slice(0, 10).map((artist) => (
                 <Artist to={`/artist/${artist.id}`} key={artist.id}>
                   {artist.images.length > 0 && (
-                    <img src={artist.images[2].url} />
+                    <img src={artist.images[2].url} alt="Artist" />
                   )}
                   <ArtistData>
                     <ArtistName>{artist.name}</ArtistName>

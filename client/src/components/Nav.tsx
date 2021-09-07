@@ -39,7 +39,7 @@ const NavItemLink = styled(NavLink)`
   }
 `;
 
-export const Nav: React.FC<NavProps> = ({}) => {
+export const Nav: React.FC<NavProps> = () => {
   return (
     <NavBar>
       <NavItemLink exact to="/">

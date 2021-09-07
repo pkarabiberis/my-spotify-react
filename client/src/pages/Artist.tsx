@@ -61,7 +61,7 @@ export const Artist: React.FC<ArtistProps> = () => {
     };
 
     fetchArtist();
-  }, []);
+  }, [params.artistId]);
 
   return (
     <Layout>
@@ -69,7 +69,7 @@ export const Artist: React.FC<ArtistProps> = () => {
         {artist ? (
           <Container>
             <ArtistImage>
-              <img src={artist?.images[0].url} />
+              <img src={artist?.images[0].url} alt="Artist" />
             </ArtistImage>
             <ArtistName>{artist?.name}</ArtistName>
             <ArtistInfoContainer>

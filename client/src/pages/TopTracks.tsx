@@ -19,7 +19,7 @@ const TracksContainer = styled.div`
   margin-top: 30px;
 `;
 
-export const TopTracks: React.FC<TopTracksProps> = ({}) => {
+export const TopTracks: React.FC<TopTracksProps> = () => {
   const [tracks, setTracks] = useState<Item[] | null>();
   const [active, setActive] = useState<Ranges>('short');
   const [loading, setLoading] = useState(false);

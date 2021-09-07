@@ -46,7 +46,7 @@ const ArtistContainer = styled(Link)`
   }
 `;
 
-export const TopArtists: React.FC<TopArtistsProps> = ({}) => {
+export const TopArtists: React.FC<TopArtistsProps> = () => {
   const [artists, setArtists] = useState<Item[] | null>();
   const [active, setActive] = useState<Ranges>('short');
   const [loading, setLoading] = useState(false);
@@ -105,7 +105,7 @@ export const TopArtists: React.FC<TopArtistsProps> = ({}) => {
               {artists.map((a) => (
                 <ArtistContainer to={`/artist/${a.id}`} key={a.id}>
                   <ArtistImage>
-                    <img src={a.images[0].url} />
+                    <img src={a.images[0].url} alt="Artist" />
                   </ArtistImage>
                   <ArtistText>{a.name}</ArtistText>
                 </ArtistContainer>

@@ -61,7 +61,7 @@ const LoginButton = styled.a`
   }
 `;
 
-export const Login: React.FC<LoginProps> = ({}) => {
+export const Login: React.FC<LoginProps> = () => {
   return (
     <Container>
       <ArtWork>

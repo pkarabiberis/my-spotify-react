@@ -11,7 +11,7 @@ import { Track } from './Track';
 
 interface UserProps {}
 
-export const User: React.FC<UserProps> = ({}) => {
+export const User: React.FC<UserProps> = () => {
   return (
     <Router>
       <Switch>

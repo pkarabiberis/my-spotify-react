@@ -2,7 +2,7 @@ import React from 'react';
 
 interface WelcomeProps {}
 
-export const Welcome: React.FC<WelcomeProps> = ({}) => {
+export const Welcome: React.FC<WelcomeProps> = () => {
   return (
     <svg
       id="ab80713a-a851-46d9-b7e4-877a3942e50e"

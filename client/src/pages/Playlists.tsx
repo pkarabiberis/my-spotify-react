@@ -58,7 +58,7 @@ const PlaylistTracks = styled.span`
   color: rgb(117 109 109);
 `;
 
-export const Playlists: React.FC<PlaylistsProps> = ({}) => {
+export const Playlists: React.FC<PlaylistsProps> = () => {
   const [playlists, setPlayLists] = useState<Item[] | null>(null);
   useEffect(() => {
     const fetchPlayLists = async () => {
@@ -76,7 +76,7 @@ export const Playlists: React.FC<PlaylistsProps> = ({}) => {
           playlists.map((pl) => (
             <Playlist key={pl.id} to={`playlist/${pl.id}`}>
               <PlaylistImg>
-                <img src={pl.images[0].url} />
+                <img src={pl.images[0].url} alt="Playlist" />
               </PlaylistImg>
               <PlaylistName>{pl.name}</PlaylistName>
               <PlaylistTracks>{pl.tracks.total} TRACKS</PlaylistTracks>

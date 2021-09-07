@@ -71,7 +71,7 @@ export const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
   return (
     <>
       <TrackContainer to={`/track/${track.id}`}>
-        <img src={track.album.images[2].url} />
+        <img src={track.album.images[2].url} alt="Track" />
         <TrackData>
           <TrackDataLeftSection>
             <TrackName>{track.name}</TrackName>

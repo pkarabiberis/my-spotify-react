@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "server/index.ts",
+  "engines": {
+    "node": "v14.8.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server/index.ts"
+    "dev": "nodemon server/index.ts",
+    "client:install": "cd client && yarn",
+    "client": "cd client && yarn start",
+    "server": "node server",
+    "start": "node server",
+    "heroku-postbuild": "cd client/ && yarn && yarn install --production && yarn build"
   },
   "keywords": [],
   "author": "",
