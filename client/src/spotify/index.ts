@@ -31,7 +31,6 @@ const getLocalAccessToken = () =>
 
 // Refresh the token
 const refreshAccessToken = async () => {
-  console.log('env:', process.env.NODE_ENV);
   try {
     const { data } = await axios.get(
       `${
@@ -43,7 +42,6 @@ const refreshAccessToken = async () => {
         withCredentials: true,
       }
     );
-    console.log('yep:', data);
     const { access_token } = data;
 
     setLocalAccessToken(access_token);

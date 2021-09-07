@@ -35,6 +35,12 @@ const generateRandomString = (length: number): string => {
 const stateKey = 'spotify_auth_state';
 
 const app = express();
+app.use(
+  cors({
+    origin: FRONTEND_URI,
+    credentials: true,
+  })
+);
 app.set('trust proxy', 1);
 
 // Priority serve any static files.
@@ -42,12 +48,7 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app
   .use(express.static(path.resolve(__dirname, '../client/build')))
-  .use(
-    cors({
-      origin: FRONTEND_URI,
-      credentials: true,
-    })
-  )
+
   .use(cookieParser())
   .use(
     historyapifallback({
