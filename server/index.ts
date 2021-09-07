@@ -119,7 +119,7 @@ app.get('/callback', (req, res) => {
         res.cookie(COOKIE_NAME, refresh_token, {
           maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
           httpOnly: true,
-          domain: __prod__ ? '.karabiberisapps.com' : undefined,
+          domain: __prod__ ? 'my-spotify.herokuapp.com' : undefined,
           secure: __prod__,
         });
 

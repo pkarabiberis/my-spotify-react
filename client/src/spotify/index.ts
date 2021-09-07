@@ -32,9 +32,16 @@ const getLocalAccessToken = () =>
 // Refresh the token
 const refreshAccessToken = async () => {
   try {
-    const { data } = await axios.get('http://localhost:8888/refresh_token', {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${
+        process.env.NODE_ENV !== 'production'
+          ? 'http://localhost:8888/login'
+          : 'https://my-spotify.herokuapp.com/refresh_token'
+      }`,
+      {
+        withCredentials: true,
+      }
+    );
     const { access_token } = data;
     setLocalAccessToken(access_token);
   } catch (e) {
@@ -70,9 +77,16 @@ export const token = getAccessToken();
 export const logout = async () => {
   window.localStorage.removeItem('spotify_token_timestamp');
   window.localStorage.removeItem('spotify_access_token');
-  await axios.get('http://localhost:8888/logout', {
-    withCredentials: true,
-  });
+  await axios.get(
+    `${
+      process.env.NODE_ENV !== 'production'
+        ? 'http://localhost:8888/logout'
+        : 'https://my-spotify.herokuapp.com/logout'
+    }`,
+    {
+      withCredentials: true,
+    }
+  );
   window.location.reload();
 };
 
