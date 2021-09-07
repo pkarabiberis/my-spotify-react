@@ -63,8 +63,6 @@ export const Artist: React.FC<ArtistProps> = () => {
     fetchArtist();
   }, []);
 
-  console.log(artist);
-
   return (
     <Layout>
       <>

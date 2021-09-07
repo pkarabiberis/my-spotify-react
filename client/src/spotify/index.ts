@@ -2,9 +2,7 @@ import axios from 'axios';
 import { Item } from '../types/Tracks';
 import { getHashParams } from '../utils';
 
-// TOKENS ******************************************************************************************
 const EXPIRATION_TIME = 3600 * 1000; // 3600 seconds * 1000 = 1 hour in milliseconds
-//rerun
 axios.interceptors.response.use(
   (res) => res,
   async (err) => {
@@ -44,17 +42,15 @@ const refreshAccessToken = async () => {
   }
 };
 
-// Get access token off of query params (called on application init)
+// Get access token off of query params
 export const getAccessToken = () => {
   const { error, access_token } = getHashParams();
   if (error) {
-    console.error(error);
     refreshAccessToken();
   }
 
   // If token has expired
   if (Date.now() - Number(getTokenTimestamp()) > EXPIRATION_TIME) {
-    console.warn('Access token has expired, refreshing...');
     refreshAccessToken();
   }
 
@@ -80,14 +76,14 @@ export const logout = async () => {
   window.location.reload();
 };
 
-// API CALLS ***************************************************************************************
-
 axios.interceptors.request.use(async (conf) => {
   conf.headers.Authorization = getLocalAccessToken()
     ? `Bearer ${getLocalAccessToken()}`
     : '';
   return conf;
 });
+
+//Api calls
 
 /**
  * Get Current User's Profile

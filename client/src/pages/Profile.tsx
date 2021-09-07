@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserInfo, logout } from '../spotify';
-import ListTimeRangeBtn from '../styles/ListTimeRangeBtn';
 import theme from '../styles/theme';
 import { Artists } from '../types/Artists';
 import { Following } from '../types/Following';
@@ -177,8 +176,6 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
 
     fetchData();
   }, [history]);
-
-  console.log('userdata: ', topArtists);
 
   return (
     <Layout>

@@ -18,7 +18,7 @@ const Container = styled.div`
   margin-top: 80px;
   display: flex;
 
-  @media (max-width: ${sizes.tablet}) {
+  @media (max-width: ${sizes.phablet}) {
     flex-direction: column;
     align-items: center;
   }
@@ -61,7 +61,7 @@ const PlaylistTracks = styled.div`
   margin-left: ${theme.spacing.md};
   flex-grow: 1;
 
-  @media (max-width: ${sizes.tablet}) {
+  @media (max-width: ${sizes.phablet}) {
     margin: 0;
   }
 `;
@@ -73,7 +73,6 @@ export const Playlist: React.FC<PlaylistProps> = ({}) => {
   useEffect(() => {
     const fetchPlaylist = async () => {
       const { data } = await getPlaylist(params.playlistId);
-      console.log('playlistData:', data);
       const tracks = data.tracks.items?.map((item: any) => item.track);
       setPlaylistTracks(tracks);
       setPlaylist(data);
@@ -81,9 +80,6 @@ export const Playlist: React.FC<PlaylistProps> = ({}) => {
 
     fetchPlaylist();
   }, [params.playlistId]);
-
-  console.log('playlist: ', playlist);
-  console.log('playlist tracks: ', playlistTracks);
 
   return (
     <Layout>

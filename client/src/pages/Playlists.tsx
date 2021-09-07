@@ -69,7 +69,6 @@ export const Playlists: React.FC<PlaylistsProps> = ({}) => {
     fetchPlayLists();
   }, []);
 
-  console.log('pl: ', playlists);
   return (
     <Layout>
       <PlayListsContainer>

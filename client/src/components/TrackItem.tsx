@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { sizes } from '../styles/media';
 import theme from '../styles/theme';
-import { Track } from '../types/Playlist';
 import { Item } from '../types/Tracks';
 import { formatDurationForHumans } from '../utils';
 
