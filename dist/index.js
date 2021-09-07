@@ -34,6 +34,7 @@ var generateRandomString = function (length) {
 };
 var stateKey = 'spotify_auth_state';
 var app = (0, express_1.default)();
+app.set('trust proxy', 1);
 // Priority serve any static files.
 app.use(express_1.default.static(path_1.default.resolve(__dirname, '../client/build')));
 app
@@ -72,6 +73,7 @@ app.get('/login', function (_, res) {
 app.get('/callback', function (req, res) {
     // your application requests refresh and access tokens
     // after checking the state parameter
+    //ok
     var code = req.query.code || null;
     var state = req.query.state || null;
     var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -99,8 +101,8 @@ app.get('/callback', function (req, res) {
                 res.cookie(constants_1.COOKIE_NAME, refresh_token, {
                     maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
                     httpOnly: true,
-                    domain: constants_1.__prod__ ? '.karabiberisapps.com' : undefined,
                     secure: constants_1.__prod__,
+                    sameSite: 'none',
                 });
                 // we can also pass the token to the browser to make requests from there
                 res.redirect(FRONTEND_URI + "/#" + new url_1.URLSearchParams({
@@ -132,6 +134,9 @@ app.get('/refresh_token', function (req, res) {
         if (!error && response.statusCode === 200) {
             var access_token = body.access_token;
             res.send({ access_token: access_token });
+        }
+        else {
+            res.send({ error: error });
         }
     });
 });

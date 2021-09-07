@@ -42,10 +42,12 @@ const refreshAccessToken = async () => {
         withCredentials: true,
       }
     );
-    const { access_token } = data;
-    setLocalAccessToken(access_token);
+    const { access_token, error } = data;
+    if (!error) {
+      setLocalAccessToken(access_token);
+    }
   } catch (e) {
-    console.error(e);
+    // yep
   }
 };
 
