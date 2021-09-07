@@ -35,6 +35,7 @@ const generateRandomString = (length: number): string => {
 const stateKey = 'spotify_auth_state';
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Priority serve any static files.
 
