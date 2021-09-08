@@ -15,6 +15,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     setAccessToken(token);
   }, []);
+  console.log(process.env.NODE_ENV);
 
   return (
     <Container>

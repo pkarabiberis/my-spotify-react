@@ -43,12 +43,8 @@ app.use(
 );
 app.set('trust proxy', 1);
 
-// Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, '../client/build')));
-
 app
   .use(express.static(path.resolve(__dirname, '../client/build')))
-
   .use(cookieParser())
   .use(
     historyapifallback({

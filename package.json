@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "server/index.ts",
-  "engines": {
-    "node": "v14.8.0"
-  },
   "scripts": {
     "dev": "nodemon server/index.ts",
     "client:install": "cd client && yarn",
     "client": "cd client && yarn start",
     "server": "node dist/index.js",
     "start": "node dist/index.js",
+    "build": "tsc && cd client/ && yarn && yarn install --production && yarn build",
     "heroku-postbuild": "cd client/ && yarn && yarn install --production && yarn build"
   },
   "keywords": [],
