@@ -9,8 +9,6 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
 
-COPY client/package.json ./
-COPY client/yarn.lock ./
 
 
 RUN yarn
@@ -21,6 +19,6 @@ RUN yarn build
 
 ENV NODE_ENV production
 
-EXPOSE 8081
+EXPOSE 8080
 CMD [ "node", "dist/index.js" ]
 USER node

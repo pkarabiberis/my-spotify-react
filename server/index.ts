@@ -117,7 +117,6 @@ app.get('/callback', (req, res) => {
           maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
           httpOnly: true,
           secure: __prod__,
-          sameSite: 'none',
         });
 
         // we can also pass the token to the browser to make requests from there

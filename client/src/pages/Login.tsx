@@ -73,7 +73,7 @@ export const Login: React.FC<LoginProps> = () => {
           href={
             process.env.NODE_ENV !== 'production'
               ? 'http://localhost:8888/login'
-              : 'https://my-spotify.herokuapp.com/login'
+              : 'https://my-spotify.karabiberisapps.com/login'
           }
         >
           Log in

@@ -34,15 +34,13 @@ var generateRandomString = function (length) {
 };
 var stateKey = 'spotify_auth_state';
 var app = (0, express_1.default)();
-app.set('trust proxy', 1);
-// Priority serve any static files.
-app.use(express_1.default.static(path_1.default.resolve(__dirname, '../client/build')));
-app
-    .use(express_1.default.static(path_1.default.resolve(__dirname, '../client/build')))
-    .use((0, cors_1.default)({
+app.use((0, cors_1.default)({
     origin: FRONTEND_URI,
     credentials: true,
-}))
+}));
+app.set('trust proxy', 1);
+app
+    .use(express_1.default.static(path_1.default.resolve(__dirname, '../client/build')))
     .use((0, cookie_parser_1.default)())
     .use((0, connect_history_api_fallback_1.default)({
     verbose: true,
@@ -102,7 +100,6 @@ app.get('/callback', function (req, res) {
                     maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
                     httpOnly: true,
                     secure: constants_1.__prod__,
-                    sameSite: 'none',
                 });
                 // we can also pass the token to the browser to make requests from there
                 res.redirect(FRONTEND_URI + "/#" + new url_1.URLSearchParams({

@@ -36,15 +36,16 @@ const refreshAccessToken = async () => {
       `${
         process.env.NODE_ENV !== 'production'
           ? 'http://localhost:8888/refresh_token'
-          : 'https://my-spotify.herokuapp.com/refresh_token'
+          : 'https://my-spotify.karabiberisapps.com/refresh_token'
       }`,
       {
         withCredentials: true,
       }
     );
     const { access_token } = data;
-
-    setLocalAccessToken(access_token);
+    if (access_token) {
+      setLocalAccessToken(access_token);
+    }
   } catch (e) {
     console.log('e:', e.message);
   }
@@ -53,9 +54,7 @@ const refreshAccessToken = async () => {
 // Get access token off of query params
 export const getAccessToken = () => {
   const { access_token } = getHashParams();
-  if (!access_token) {
-    return null;
-  }
+
   // If token has expired
   if (Date.now() - Number(getTokenTimestamp()) > EXPIRATION_TIME) {
     refreshAccessToken();
@@ -81,7 +80,7 @@ export const logout = async () => {
     `${
       process.env.NODE_ENV !== 'production'
         ? 'http://localhost:8888/logout'
-        : 'https://my-spotify.herokuapp.com/logout'
+        : 'https://my-spotify.karabiberisapps.com/logout'
     }`,
     {
       withCredentials: true,
