@@ -127,7 +127,6 @@ app.get('/callback', (req, res) => {
           })}`
         );
       } else {
-        console.log('redirect');
         res.redirect(`${FRONTEND_URI}/login`);
       }
     });
@@ -156,7 +155,6 @@ app.get('/refresh_token', (req, res) => {
       const access_token = body.access_token;
       res.send({ access_token });
     } else {
-      console.log('err rtoken: ', error);
       res.send({ error });
     }
   });

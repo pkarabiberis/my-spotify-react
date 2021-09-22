@@ -151,7 +151,6 @@ export const Track: React.FC<TrackProps> = () => {
     useState<TrackAnalysis | null>(null);
 
   const params: { trackId: string } = useParams();
-  console.log(params);
   useEffect(() => {
     const fetchTrack = async () => {
       const data = await getTrackInfo(params.trackId);

@@ -46,8 +46,8 @@ const refreshAccessToken = async () => {
     if (access_token) {
       setLocalAccessToken(access_token);
     }
-  } catch (e) {
-    console.log('e:', e.message);
+  } catch (e: any) {
+    console.log(e.message);
   }
 };
 
