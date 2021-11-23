@@ -1,6 +1,6 @@
 # My Spotify
 
-> A web app for visualizing personalized Spotify data
+> A web application that shows your Spotify data. Includes top artists, top tracks, recently played tracks, playlists and detailed information about each track
 
 Built with:
 
