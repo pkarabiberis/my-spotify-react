@@ -4,6 +4,7 @@
 
 Built with:
 
+- React
 - TypeScript
 - Spotify Web API
 - Express
